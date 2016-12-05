@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.484,=C:\Users\ALF\Documents\Embarcadero\Studio\17.0\Imports\SwConst_TLB.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.384,=C:\Users\ALF\Documents\Embarcadero\Studio\Projects\kurZ_solidworks\Common_Unit.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.390,C:\Users\ALF\Documents\Embarcadero\Studio\17.0\Imports\SwConst_TLB.pas=</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.381,C:\Users\ALF\Documents\Embarcadero\Studio\Projects\kurZ_solidworks\deka.pas=</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.001,=C:\Users\ALF\Documents\Embarcadero\Studio\Projects\kurZ_solidworks\deka.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.213,C:\Users\ALF\Documents\Embarcadero\Studio\Projects\kurZ_solidworks\postr.pas=C:\Users\ALF\Documents\Embarcadero\Studio\Projects\kurZ_solidworks\Unit2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.340,C:\Users\ALF\Documents\Embarcadero\Studio\Projects\kurZ_solidworks\Unit1.dfm=C:\Users\ALF\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.198,C:\Users\ALF\Documents\Embarcadero\Studio\Projects\kurZ_solidworks\Project1.dproj=C:\Users\ALF\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.385,=C:\Users\ALF\Documents\Embarcadero\Studio\17.0\Imports\SldWorks_TLB.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.300,C:\Users\ALF\Documents\Embarcadero\Studio\17.0\Imports\SldWorks_TLB.pas=</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.573,=C:\Users\ALF\Documents\Embarcadero\Studio\Projects\kurZ_solidworks\SldWorks_TLB.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.658,C:\Users\ALF\Documents\Embarcadero\Studio\Projects\kurZ_solidworks\SldWorks_TLB.pas=</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.570,=C:\Users\ALF\Documents\Embarcadero\Studio\Projects\kurZ_solidworks\SwConst_TLB.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.672,C:\Users\ALF\Documents\Embarcadero\Studio\Projects\kurZ_solidworks\SwConst_TLB.pas=</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.117,=C:\Users\ALF\Documents\Embarcadero\Studio\Projects\kurZ_solidworks\SwConst_TLB.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.770,=C:\Users\ALF\Documents\Embarcadero\Studio\Projects\kurZ_solidworks\Unit2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.340,C:\Users\ALF\Documents\Embarcadero\Studio\Projects\kurZ_solidworks\Unit1.pas=C:\Users\ALF\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.683,=C:\Users\ALF\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.114,=C:\Users\ALF\Documents\Embarcadero\Studio\Projects\kurZ_solidworks\SldWorks_TLB.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.322,=C:\Users\ALF\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+  </Transactions>
+</BorlandProject>
