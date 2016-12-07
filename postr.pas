@@ -2,7 +2,7 @@
 
 interface
 
-uses Common_Unit, SwConst_TLB, SldWorks_TLB, OleAuto;
+uses Common_Unit, SwConst_TLB, SldWorks_TLB, OleAuto, Mathbits;
 
 procedure turn_to(sel: integer);
 procedure basis();//1
@@ -20,6 +20,8 @@ var
   SelMgr: ISelectionMgr; // Менеджер выделений
   CP: ISketchPoint; // Точка эскиза
   Seg: array [0 .. 70] of ISketchSegment; // Элемент эскиза
+  freePlane: IRefPlane; // Свободная плоскость
+  msX, msY: array[0..7] of extended;
 
 implementation
 
@@ -67,12 +69,13 @@ begin
       end;
   end;
 
+  MD := CloseSWS;
   MD.Visible := True;
  // MD.ShowNamedView2('', 7);
 end;
 
 procedure basis(); //1
-var i: integer; sdf: extended; kl: IDispatch; gf: IRefPlane;
+var i: integer;
 begin
   if MD = nil then
     begin
@@ -81,8 +84,6 @@ begin
   SelMgr := MD.ISelectionManager;
   if SelMgr = nil then
     Raise EOleError.Create('xm!'); // Вошел в режим эскиза
-
-
 
   // постройка часть №1
   FindPlanes(MD);
@@ -113,38 +114,7 @@ begin
 
 
 
-   { SelMgr := MD.ISelectionManager;
-  if SelMgr = nil then
-    Raise EOleError.Create('xm!'); // Вошел в режим эскиза   }
-
-   gf := MD.FeatureManager.InsertRefPlane(8, 30/1000, 0, 0, 0, 0) as IRefPlane;
-
-
-
-  // постройка часть №1
-  {FindPlanes(MD);
-  if (freePlane as IFeature).Select(False) then
-    MD.InsertSketch
-  else
-    Raise EOleError.Create('Не выбрана плоскость!');
-
-   SelMgr.IGetSelectedObject();
-
-  if MD.SelectByID('', 'EXTSKETCHPOINT', 0, 0, 0) then
-    CP := SelMgr.IGetSelectedObject(1) as ISketchPoint
-  else
-    Raise EOleError.Create('Не выбрана исходная точка!');
-  if CP = nil then
-    Raise EOleError.Create('Не выбран указатель на исходную точку!');   }
-  {}
-
-  {MD.ShowNamedView2('', 3);
-  MD.Extension.SelectByID2('', 'FACE', 0, 5.20574728552326E-02, -3.42904172732419E-02, False, 0, Nil, 0);
-  MD.SketchManager.InsertSketch(True);
-  MD.ClearSelection2(True);}
-  //Seg[6] := MD.SketchManager.CreateArc(0.000178, 0.000178, 0, -0.040687, 0.010127, 0, -0.006968, 0.041624, 0, -1);
-
- { SelMgr := MD.ISelectionManager;
+    SelMgr := MD.ISelectionManager;
   if SelMgr = nil then
     Raise EOleError.Create('xm!'); // Вошел в режим эскиза
 
@@ -155,19 +125,64 @@ begin
   else
     Raise EOleError.Create('Не выбрана плоскость!');
 
-  MD.FeatureManager.InsertRefPlane(8, 0.016, 0, 0, 0, 0);
-
-  if MD.SelectByID('', 'EXTSKETCHPOINT', 0, 0, 0) then
-    CP := SelMgr.IGetSelectedObject(1) as ISketchPoint
+  freePlane := MD.FeatureManager.InsertRefPlane(8, 16/1000, 0, 0, 0, 0) as IRefPlane;
+  if (freePlane as IFeature).Select(False) then
+    MD.SketchManager.InsertSketch(False)
   else
-    Raise EOleError.Create('Не выбрана исходная точка!');
-  if CP = nil then
-    Raise EOleError.Create('Не выбран указатель на исходную точку!');
-  //sdf := 16/1000;
-  Seg[6] := MD.SketchManager.CreateArc(0, 0, 0, -0.03, 0.04, 0, 0.03, 0.04, 0, -1);
-  Seg[7] := MD.SketchManager.CreateArc(0, 0, 0, -0.02, 0.03, 0, 0.02, 0.03, 0, -1);
-  Seg[8] := MD.SketchManager.CreateLine(-0.03, 0.04, 0, -0.02, 0.03, 0);
-  Seg[9] := MD.SketchManager.CreateLine(0.03, 0.04, 0, 0.02, 0.03, 0);    }
+    Raise EOleError.Create('Не выбрана плоскость!');
+
+  Point_OTC(80/2, 135, msX[0], msY[0]);
+  Point_OTC(80/2, 45, msX[1], msY[1]);
+  Point_OTC(160/2, 135, msX[2], msY[2]);
+  Point_OTC(160/2, 45, msX[3], msY[3]);
+
+  Point_OTC(80/2, 315, msX[4], msY[4]);
+  Point_OTC(80/2, 225, msX[5], msY[5]);
+  Point_OTC(160/2, 315, msX[6], msY[6]);
+  Point_OTC(160/2, 225, msX[7], msY[7]);
+
+  {msX[0] := ((80 / 2) * cos((3 * pi) / 4)) / 1000;
+  msY[0] := ((80 / 2) * sin((3 * pi) / 4)) / 1000;
+
+  msX[1] := ((80 / 2) * cos(pi / 4)) / 1000;
+  msY[1] := ((80 / 2) * sin(pi / 4)) / 1000;
+
+  msX[2] := ((160 / 2) * cos((3 * pi) / 4)) / 1000;
+  msY[2] := ((160 / 2) * sin((3 * pi) / 4)) / 1000;
+
+  msX[3] := ((160 / 2) * cos(pi / 4)) / 1000;
+  msY[3] := ((160 / 2) * sin(pi / 4)) / 1000;
+
+
+  msX[4] := ((80 / 2) * cos((7 * pi) / 4)) / 1000;
+  msY[4] := ((80 / 2) * sin((7 * pi) / 4)) / 1000;
+
+  msX[5] := ((80 / 2) * cos((5 * pi) / 4)) / 1000;
+  msY[5] := ((80 / 2) * sin((5 * pi) / 4)) / 1000;
+
+  msX[6] := ((160 / 2) * cos((7 * pi) / 4)) / 1000;
+  msY[6] := ((160 / 2) * sin((7 * pi) / 4)) / 1000;
+
+  msX[7] := ((160 / 2) * cos((5 * pi) / 4)) / 1000;
+  msY[7] := ((160 / 2) * sin((5 * pi) / 4)) / 1000;}
+
+
+  Seg[6] := MD.SketchManager.CreateArc(0, 0, 0, msX[0], msY[0], 0, msX[1], msY[1], 0, -1);
+  Seg[7] := MD.SketchManager.CreateArc(0, 0, 0, msX[2], msY[2], 0, msX[3], msY[3], 0, -1);
+  Seg[8] := MD.SketchManager.CreateLine(msX[0], msY[0], 0, msX[2], msY[2], 0);
+  Seg[9] := MD.SketchManager.CreateLine(msX[1], msY[1], 0, msX[3], msY[3], 0);
+  Seg[10] := MD.SketchManager.CreateArc(0, 0, 0, msX[4], msY[4], 0, msX[5], msY[5], 0, -1);
+  Seg[11] := MD.SketchManager.CreateArc(0, 0, 0, msX[6], msY[6], 0, msX[7], msY[7], 0, -1);
+  Seg[12] := MD.SketchManager.CreateLine(msX[4], msY[4], 0, msX[6], msY[6], 0);
+  Seg[13] := MD.SketchManager.CreateLine(msX[5], msY[5], 0, msX[7], msY[7], 0);
+
+  for i := 6 to 13 do
+    Seg[i].Select(True);
+  MD.SketchAddConstraints('sgFIXED');
+
+  MD.FeatureManager.FeatureExtrusion2(True, False, False, 0, 0, 15/1000, 15/1000,
+    False, False, False, False, 1.74532925199433E-02, 1.74532925199433E-02, False,
+    False, False, False, True, True, True, 0, 0, False)
 
 end;
 

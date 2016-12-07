@@ -10,12 +10,12 @@ function OpenSW: IModelDoc2;
 function FindPlanes(ModelDoc: IModelDoc2): HResult;
 function CloseSWSave: string;
 function CloseSWShow: HResult;
+function CloseSWS: IModelDoc2;
 
 var
   xyPlane: IRefPlane; // Главная плоскость XY
   xzPlane: IRefPlane; // Главная плоскость XZ
   yzPlane: IRefPlane; // Главная плоскость YZ
-  //freePlane: IRefPlane; // Свободная плоскость
   Razmer, privyaz: boolean;
   hr: HResult;
   SW: ISldWorks;
@@ -60,17 +60,11 @@ begin
           yzPlane := rp
         else if (v[6] = 0) and (v[7] <> 0) and (v[8] = 0) then
           xzPlane := rp
-        {else if (v[6] <> 0) and (v[7] <> 0) and (v[8] <> 0) then
-          freePlane := rp
-        else if (v[3] <> 0) and (v[4] = 0) and (v[5] = 0) then
-          freePlane := rp
-        else if (v[3] = 0) and (v[4] = 0) and (v[5] <> 0) then
-          freePlane := rp}
       end;
     end;
     f := f.IGetNextFeature;
   end;
-  if (xyPlane = nil) or (yzPlane = nil) or (xzPlane = nil){ or (freePlane = nil)} then
+  if (xyPlane = nil) or (yzPlane = nil) or (xzPlane = nil) then
     hr := S_FALSE;
   Result := hr;
 end;
@@ -86,11 +80,19 @@ begin
   // привязки убираем   и размеры убираем
   Result := SW.NewPart as IModelDoc2;
   MD := Result;
-  Razmer := SW.GetUserPreferenceToggle(SWInputDimValOnCreate);
-  SW.SetUserPreferenceToggle(SWInputDimValOnCreate, false);
+  Razmer := MD.GetUserPreferenceToggle(SWInputDimValOnCreate);
+  MD.SetUserPreferenceToggle(SWInputDimValOnCreate, False);
   privyaz := MD.GetInferenceMode;
-  MD.SetInferenceMode(false);
+  MD.SetInferenceMode(False);
 
+end;
+
+function CloseSWS: IModelDoc2;
+begin
+  // привязки и размеры включаем
+  MD.SetInferenceMode(privyaz);
+  MD.SetUserPreferenceToggle(swInputDimValOnCreate, Razmer);
+  Result := MD;
 end;
 
 function CloseSWSave: string;
@@ -100,7 +102,7 @@ begin
   // привязки и размеры включаем
   MD.SetInferenceMode(privyaz);
   SW.SetUserPreferenceToggle(SWInputDimValOnCreate, Razmer);
-  SW.Visible := false;
+  SW.Visible := False;
 
   // if Form1.SD1.execute then
   // begin
